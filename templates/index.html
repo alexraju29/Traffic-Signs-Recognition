@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Traffic Signal Prediction</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-image: url('/static/bg.jpg');
+			background-size: cover;
+			background-position: center;
+			backdrop-filter: blur(8px);
+		}
+		form {
+			padding-top: 100px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		label {
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 20px;
+		}
+		input[type="file"] {
+			font-size: 20px;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: #eee;
+			margin-bottom: 20px;
+			box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+			-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+			-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+		}
+		input[type="submit"] {
+			font-size: 20px;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			background-color: #007bff;
+			color: #fff;
+			cursor: pointer;
+			box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+			-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+			-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+		}
+		input[type="submit"]:hover {
+			background-color: #0069d9;
+		}
+		.result {
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.result h2 {
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<form method="POST" action="{{ url_for('predict') }}" enctype="multipart/form-data">
+		<label>Upload an Image of a Traffic Signal:</label>
+		<input type="file" name="file" accept="image/*">
+		<input type="submit" value="Predict">
+	</form>
+	<div id="predictedResult" class="result">	<h2>{{ prediction }}</h2>
+		{% if is_predicted %}
+		<!-- <img src="{{ url_for('static', filename='{{ img_path }}') }}" width="300px" height="300px"> -->
+		<form method="GET" action="{{ url_for('index') }}">
+			<input type="submit" value="Clear">
+		</form>
+		{% endif %}
+	</div>
+
+</body>
+</html>
